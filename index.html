@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Del Texto a la Acción · Laboratorio de actuación</title>
+  <meta name="description" content="Laboratorio de actuación para actrices y actores que quieren dejar de decir el texto y empezar a accionarlo. Método propio, trabajo técnico riguroso, función final en sala." />
+  <meta property="og:title" content="Del Texto a la Acción · Laboratorio de actuación" />
+  <meta property="og:description" content="Laboratorio de actuación para actrices y actores que quieren dejar de decir el texto y empezar a accionarlo." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    .dta-root, .dta-root *, .dta-root *::before, .dta-root *::after { box-sizing: border-box; }
+    .dta-root {
+      --orange: #f08c1d;
+      --text-soft: #feefdd;
+      --text-muted: #feefdd;
+      --text-faint: rgba(254, 239, 221, 0.42);
+      --cream: #feefdd;
+      --cream-soft: rgba(254, 239, 221, 0.82);
+      --cream-muted: rgba(254, 239, 221, 0.55);
+      --ink: #2a1f14;
+      --ink-soft: rgba(42,31,20,0.75);
+      --accent: #feefdd;
+      --border: rgba(254,239,221,0.22);
+      --border-soft: rgba(254,239,221,0.10);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      background: var(--orange);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
+    .dta-root h1, .dta-root h2, .dta-root h3, .dta-root p, .dta-root ul { margin: 0; padding: 0; }
+    .dta-root ul { list-style: none; }
+    .dta-root a:not(.dta-btn-main):not(.dta-cta) { color: inherit; }
+
+    .dta-hero h1, .dta-hero h1 em, .dta-hero-sub,
+    .dta-section h2, .dta-section p,
+    .dta-pullquote p,
+    .dta-testimonio p, .dta-testimonio cite,
+    .dta-cierre h2, .dta-cierre p { color: #2a1f14; }
+
+    .dta-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--orange);
+      border-bottom: 0.5px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .dta-nav-logo { font-family: var(--serif); font-size: 18px; font-weight: 500; text-decoration: none; letter-spacing: 0.01em; color: var(--cream); }
+    .dta-nav-ig { font-size: 13px; color: var(--text-muted); text-decoration: none; border-bottom: 0.5px solid var(--text-faint); padding-bottom: 1px; transition: color 0.2s; }
+    .dta-nav-ig:hover { color: var(--cream); }
+
+    .dta-container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+
+    .dta-hero { padding: 6rem 0 5rem; border-bottom: 0.5px solid var(--border); }
+    .dta-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2rem; }
+    .dta-hero h1 { font-family: var(--serif); font-size: clamp(44px, 8vw, 72px); font-weight: 400; line-height: 1.08; margin-bottom: 2rem; letter-spacing: -0.01em; color: var(--cream); }
+    .dta-hero h1 em { font-style: italic; color: var(--text-soft); }
+    .dta-hero-sub { font-size: 17px; color: var(--text-soft); max-width: 520px; margin-bottom: 2.5rem; }
+    .dta-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+
+    .dta-btn-main { background: var(--cream); color: var(--orange); font-size: 14px; font-weight: 500; padding: 13px 28px; border-radius: 2px; border: none; cursor: pointer; text-decoration: none; letter-spacing: 0.02em; transition: background 0.2s; display: inline-block; }
+    .dta-btn-main:hover { background: #fff8ed; }
+    .dta-btn-main:disabled { opacity: 0.6; cursor: not-allowed; }
+    .dta-btn-ghost { font-size: 14px; color: var(--text-muted); text-decoration: none; border-bottom: 0.5px solid var(--text-faint); padding-bottom: 1px; transition: color 0.2s; }
+    .dta-btn-ghost:hover { color: var(--cream); }
+
+    .dta-section { padding: 4.5rem 0; border-bottom: 0.5px solid var(--border); }
+    .dta-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 1.75rem; }
+    .dta-section h2 { font-family: var(--serif); font-size: clamp(26px, 4vw, 36px); font-weight: 400; line-height: 1.2; margin-bottom: 1.5rem; letter-spacing: -0.005em; color: var(--cream); }
+    .dta-section p { font-size: 15px; color: var(--text-soft); line-height: 1.8; margin-bottom: 1rem; max-width: 620px; }
+    .dta-section p:last-child { margin-bottom: 0; }
+
+    .dta-pullquote { margin: 2.5rem 0; padding: 2rem 0 2rem 2rem; border-left: 1.5px solid var(--cream); }
+    .dta-pullquote p { font-family: var(--serif); font-size: clamp(20px, 3vw, 26px); font-style: italic; color: var(--cream); line-height: 1.5; max-width: 560px; margin: 0; }
+
+    .dta-plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--border); border: 0.5px solid var(--border); margin-top: 2rem; }
+    .dta-plan { background: rgba(254,239,221,0.14); padding: 2rem 1.5rem; display: flex; flex-direction: column; }
+    .dta-plan.featured { background: var(--cream); }
+    .dta-plan-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .dta-plan.featured .dta-plan-tag { color: rgba(42,31,20,0.6); }
+    .dta-plan h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 0.5rem; color: var(--cream); }
+    .dta-plan.featured h3 { color: var(--ink); }
+    .dta-price { font-family: var(--serif); font-size: 28px; font-weight: 500; margin-bottom: 0.25rem; line-height: 1; color: var(--cream); }
+    .dta-price.small { font-size: 20px; }
+    .dta-plan.featured .dta-price { color: var(--ink); }
+    .dta-price span { font-family: var(--sans); font-size: 13px; font-weight: 400; color: var(--text-muted); }
+    .dta-plan.featured .dta-price span { color: rgba(42,31,20,0.6); }
+    .dta-plan-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .dta-plan.featured .dta-plan-sub { color: rgba(42,31,20,0.6); }
+    .dta-plan-desc { font-size: 13px; color: var(--text-soft); line-height: 1.65; margin-bottom: 1.25rem; }
+    .dta-plan.featured .dta-plan-desc { color: var(--ink-soft); }
+    .dta-plan-list { margin-bottom: 1.75rem; flex: 1; }
+    .dta-plan-list li { font-size: 13px; color: var(--text-soft); padding: 5px 0 5px 1rem; position: relative; line-height: 1.5; }
+    .dta-plan.featured .dta-plan-list li { color: var(--ink-soft); }
+    .dta-plan-list li::before { content: "—"; position: absolute; left: 0; color: var(--text-faint); }
+    .dta-plan.featured .dta-plan-list li::before { color: rgba(42,31,20,0.4); }
+    .dta-cta { display: block; text-align: center; font-size: 13px; font-weight: 500; padding: 11px 0; border-radius: 2px; text-decoration: none; transition: all 0.2s; letter-spacing: 0.02em; }
+    .dta-cta-outline { border: 0.5px solid var(--border); color: var(--cream); background: transparent; }
+    .dta-cta-outline:hover { background: var(--border-soft); }
+    .dta-cta-inverse { background: var(--ink); color: var(--cream); }
+    .dta-cta-inverse:hover { background: #1a1208; }
+
+    .dta-testimonio { padding: 1.5rem 0; border-bottom: 0.5px solid var(--border); }
+    .dta-testimonio:last-child { border-bottom: none; }
+    .dta-testimonio p { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 0.5rem; max-width: none; }
+    .dta-testimonio cite { font-style: normal; font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; }
+
+    .dta-bio { margin-top: 2rem; display: flex; gap: 2rem; align-items: flex-start; }
+    .dta-bio-initials { width: 56px; height: 56px; border-radius: 50%; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 18px; color: var(--text-muted); flex-shrink: 0; background: rgba(254,239,221,0.18); }
+    .dta-bio-text p { font-size: 14px; color: var(--text-soft); line-height: 1.75; margin-bottom: 0.75rem; max-width: none; }
+    .dta-bio-link { font-size: 13px; color: var(--cream); text-decoration: none; border-bottom: 0.5px solid currentColor; padding-bottom: 1px; }
+
+    .dta-cierre { padding: 6rem 0 5rem; text-align: center; }
+    .dta-cierre h2 { font-family: var(--serif); font-size: clamp(30px, 5vw, 48px); font-weight: 400; line-height: 1.15; margin-bottom: 1rem; letter-spacing: -0.01em; color: var(--cream); }
+    .dta-cierre p { font-size: 15px; color: var(--text-muted); margin-bottom: 2rem; }
+    .dta-cierre-note { margin-top: 1.25rem !important; font-size: 13px !important; color: var(--text-muted); }
+    .dta-cierre-note a { color: var(--cream); text-decoration: none; border-bottom: 0.5px solid currentColor; padding-bottom: 1px; }
+
+    .dta-footer { border-top: 0.5px solid var(--border); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .dta-footer p { font-size: 12px; color: var(--text-faint); }
+    .dta-footer a { font-size: 12px; color: var(--text-muted); text-decoration: none; }
+
+    .dta-meta { font-size: 13px; color: var(--text-muted); margin-top: 0.5rem; }
+
+    .dta-form { margin-top: 2rem; display: grid; gap: 1rem; max-width: 560px; }
+    .dta-form-row { display: grid; gap: 0.4rem; text-align: left; }
+    .dta-form label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+    .dta-form input, .dta-form textarea, .dta-form select {
+      background: rgba(254,239,221,0.10);
+      border: 0.5px solid var(--border);
+      border-radius: 2px;
+      padding: 0.75rem 0.9rem;
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.5;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+    }
+    .dta-form textarea { resize: vertical; min-height: 110px; }
+    .dta-form input::placeholder, .dta-form textarea::placeholder { color: var(--text-faint); }
+    .dta-form input:focus, .dta-form textarea:focus, .dta-form select:focus { border-color: var(--cream); background: rgba(254,239,221,0.16); }
+    .dta-form select option { color: var(--ink); }
+    .dta-form-submit { justify-self: start; margin-top: 0.25rem; }
+    .dta-form-note { font-size: 12px; color: var(--text-faint); margin-top: 0.25rem; }
+    .dta-form-success { padding: 1.25rem 1.5rem; border: 0.5px solid var(--border); border-radius: 2px; background: rgba(254,239,221,0.10); font-size: 14px; color: var(--cream); text-align: left; display: none; }
+    .dta-form-success p { margin: 0; max-width: none; }
+    .dta-form-error { padding: 1.25rem 1.5rem; border: 0.5px solid #e74c3c; border-radius: 2px; background: rgba(231, 76, 60, 0.1); font-size: 14px; color: #f39c12; text-align: left; margin-bottom: 1rem; display: none; }
+    .dta-form-error p { margin: 0; max-width: none; }
+
+    @media (max-width: 600px) {
+      .dta-nav { padding: 1rem; }
+      .dta-container { padding: 0 1.25rem; }
+      .dta-hero { padding: 4rem 0 3.5rem; }
+      .dta-section { padding: 3rem 0; }
+      .dta-plans { grid-template-columns: 1fr; }
+      .dta-bio { flex-direction: column; gap: 1rem; }
+      .dta-pullquote { padding-left: 1.25rem; }
+      .dta-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body class="dta-root">
+  <nav class="dta-nav">
+    <a class="dta-nav-logo" href="#">Del Texto a la Acción</a>
+    <a class="dta-nav-ig" href="https://instagram.com/deltextoalaaccion" target="_blank" rel="noreferrer">@deltextoalaaccion</a>
+  </nav>
+
+  <main>
+    <section class="dta-hero">
+      <div class="dta-container">
+        <p class="dta-eyebrow">Buenos Aires · Laboratorio de actuación</p>
+        <h1>¿Dónde tenías<br />puesta la <em>atención</em>?</h1>
+        <p class="dta-hero-sub">
+          Un laboratorio para actores y actrices que quieren dejar de decir el texto y empezar a accionarlo. Trabajo técnico riguroso, método propio, función final en sala.
+        </p>
+        <div class="dta-actions">
+          <a class="dta-btn-main" href="#planes">Quiero anotarme</a>
+          <a class="dta-btn-ghost" href="#planes">Ver opciones y precios ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dta-section">
+      <div class="dta-container">
+        <p class="dta-label">El problema</p>
+        <h2>El texto no es el problema.<br />La atención lo es.</h2>
+        <p>Pasás horas ensayando. Sabés las palabras de memoria. Y sin embargo, algo no funciona. La escena no vive. El diálogo suena a texto leído.</p>
+        <p>Lo que pasa casi siempre es lo mismo: la atención está puesta en las palabras, en la entonación correcta, en no olvidarse la letra. Y en ese esfuerzo, lo esencial desaparece.</p>
+        <div class="dta-pullquote">
+          <p>Lo importante no está en lo que se dice. Está en lo que no se dice y sí se acciona: el deseo, el obstáculo, el otro.</p>
+        </div>
+        <p>Cuando la atención se traslada hacia el otro —hacia lo que quiero conseguir, qué me lo impide y qué hago para lograrlo— algo cambia. El texto deja de ser el centro y empieza a funcionar como pretexto para descubrir lo que verdaderamente está en juego en la escena: el deseo y su contradicción.</p>
+      </div>
+    </section>
+
+    <section class="dta-section">
+      <div class="dta-container">
+        <p class="dta-label">El laboratorio</p>
+        <h2>Un espacio para transformar texto en acción escénica</h2>
+        <p>Del Texto a la Acción es un laboratorio de entrenamiento actoral semanal, centrado en el trabajo con monólogos y escenas de textos teatrales, cinematográficos o de autoría propia.</p>
+        <p>No es una clase teórica. No es un taller recreativo. Es un espacio de investigación práctica donde desarmamos el texto, identificamos acciones, construimos decisiones escénicas con sentido de verdad e integramos cuerpo, voz y pensamiento en una unidad expresiva.</p>
+        <p>El participante deja de ejecutar un texto y empieza a construir un hecho teatral vivo, desde impulsos en presente.</p>
+        <p class="dta-meta">CABA · Zona Almagro · 3 encuentros por mes · 3 horas cada uno</p>
+      </div>
+    </section>
+
+    <section class="dta-section" id="planes">
+      <div class="dta-container">
+        <p class="dta-label">Opciones</p>
+        <h2>Elegí el camino que te conviene</h2>
+        <div class="dta-plans">
+          <div class="dta-plan featured">
+            <span class="dta-plan-tag">Laboratorio</span>
+            <h3>Presencial</h3>
+            <div class="dta-price">$80.000<span> / mes</span></div>
+            <p class="dta-plan-sub">Duración: 3 meses · Cupo: 10 personas</p>
+            <p class="dta-plan-desc">Proceso completo de creación actoral con función final en sala real.</p>
+            <ul class="dta-plan-list">
+              <li>3 encuentros mensuales de 3 horas</li>
+              <li>Corrección personalizada en vivo</li>
+              <li>Textos provistos por la docente</li>
+              <li>Merienda incluida</li>
+              <li>Función final en sala</li>
+            </ul>
+            <a class="dta-cta dta-cta-inverse" href="#reservar">Anotarme al laboratorio</a>
+          </div>
+
+          <div class="dta-plan">
+            <span class="dta-plan-tag">Digital</span>
+            <h3>Módulo introductorio</h3>
+            <div class="dta-price small">Próximamente</div>
+            <p class="dta-plan-sub">Acceso online · A tu ritmo</p>
+            <p class="dta-plan-desc">Para quienes quieren empezar a entender el método antes de entrar al laboratorio.</p>
+            <ul class="dta-plan-list">
+              <li>Video explicativo del método</li>
+              <li>PDF descargable con guía práctica</li>
+              <li>Ejercicios para trabajar sola/solo</li>
+            </ul>
+            <a class="dta-cta dta-cta-outline" href="#reservar">Avisame cuando esté disponible</a>
+          </div>
+
+          <div class="dta-plan">
+            <span class="dta-plan-tag">Individual</span>
+            <h3>Coaching actoral</h3>
+            <div class="dta-price small">Por entrevista</div>
+            <p class="dta-plan-sub">Atención personalizada</p>
+            <p class="dta-plan-desc">Para trabajar bloqueos específicos, preparar castings o pulir un unipersonal.</p>
+            <ul class="dta-plan-list">
+              <li>Mirada experta individual</li>
+              <li>Preparación para casting</li>
+              <li>Trabajo sobre unipersonales</li>
+            </ul>
+            <a class="dta-cta dta-cta-outline" href="https://instagram.com/deltextoalaaccion" target="_blank" rel="noreferrer">Escribime por Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dta-section">
+      <div class="dta-container">
+        <p class="dta-label">Lo que dicen quienes pasaron por el proceso</p>
+        <h2>Herramientas que se llevan al cuerpo</h2>
+        <div>
+          <div class="dta-testimonio">
+            <p>"El espacio me dejó herramientas concretas que pude pasarlas al cuerpo. Sentí que estaba creciendo técnicamente."</p>
+            <cite>— Actriz, alumna del laboratorio 2024</cite>
+          </div>
+          <div class="dta-testimonio">
+            <p>"Aunque no pude continuar por trabajo, me llevo mucho del proceso. El taller fue valioso desde el primer encuentro."</p>
+            <cite>— Alumna del taller de extensión UNA</cite>
+          </div>
+          <div class="dta-testimonio">
+            <p>"Las devoluciones son claras, precisas y útiles. No es teoría: es algo que aplicás en el momento."</p>
+            <cite>— Actriz, laboratorio 2024</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dta-section">
+      <div class="dta-container">
+        <p class="dta-label">Quién soy</p>
+        <h2>María Cecilia González</h2>
+        <div class="dta-bio">
+          <div class="dta-bio-initials">MCG</div>
+          <div class="dta-bio-text">
+            <p>Actriz, docente y creadora escénica, Licenciada en Actuación por la Universidad Nacional de las Artes (UNA). Su trabajo se sitúa en la intersección entre actuación, dramaturgia y dirección, con especial interés en la relación entre técnica actoral y construcción poética.</p>
+            <p>Se formó con Raúl Serrano, Alejandro Catalán y Javier Daulte, y en dramaturgia con Mauricio Kartún y Mariano Saba. Docente y ayudante de cátedra en la UNA, coordina el taller Del Texto a la Acción, centrado en la integración cuerpo–voz, la acción dramática y el trabajo actoral con textos de autor. Co-dirigió la compañía Los Perros de Pavlov, con presentaciones en Buenos Aires, distintas provincias de Argentina y Colombia. Actualmente es productora ejecutiva en Lunfardo Films.</p>
+            <p><a class="dta-bio-link" href="https://instagram.com/deltextoalaaccion" target="_blank" rel="noreferrer">@deltextoalaaccion</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dta-section" id="reservar">
+      <div class="dta-container">
+        <p class="dta-label">Consultas y reservas</p>
+        <h2>Reservá tu lugar</h2>
+        <p>Dejame tus datos y una breve consulta. Te respondo por mail para coordinar tu entrevista y confirmar la reserva.</p>
+
+        <div id="form-error" class="dta-form-error">
+          <p id="error-message">Ocurrió un error al enviar el formulario. Por favor, intenta nuevamente.</p>
+        </div>
+
+        <div id="form-success" class="dta-form-success">
+          <p>¡Gracias, <span id="success-name">hola</span>! Tu consulta fue enviada correctamente. Te responderé pronto por email.</p>
+        </div>
+
+        <form id="reserva-form" class="dta-form">
+          <div class="dta-form-row">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" required maxlength="100" placeholder="Tu nombre" />
+          </div>
+          <div class="dta-form-row">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required maxlength="255" placeholder="tu@email.com" />
+          </div>
+          <div class="dta-form-row">
+            <label for="telefono">TELÉFONO</label>
+            <input id="telefono" name="telefono" type="tel" maxlength="30" placeholder="+54 9 11 ..." />
+          </div>
+          <div class="dta-form-row">
+            <label for="interes">Me interesa</label>
+            <select id="interes" name="interes">
+              <option>Laboratorio presencial</option>
+              <option>Módulo introductorio (Virtual)</option>
+              <option>Otra consulta</option>
+            </select>
+          </div>
+          <div class="dta-form-row">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" required maxlength="1000" placeholder="Contame brevemente tu experiencia y qué buscás."></textarea>
+          </div>
+          <button type="submit" class="dta-btn-main dta-form-submit">Enviar consulta</button>
+          <p class="dta-form-note">También podés escribirme por <a href="https://instagram.com/deltextoalaaccion" target="_blank" rel="noreferrer" style="color: var(--cream);">Instagram</a>.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="dta-cierre">
+      <div class="dta-container">
+        <h2>El texto está.<br />Ahora hay que accionarlo.</h2>
+        <p>Cupo limitado a 10 personas. Primera edición: precio de lanzamiento.</p>
+        <a class="dta-btn-main" href="#reservar">Quiero anotarme al laboratorio</a>
+        <p class="dta-cierre-note">
+          ¿Tenés dudas? Escribime por <a href="https://instagram.com/deltextoalaaccion" target="_blank" rel="noreferrer">Instagram</a> y lo hablamos.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="dta-footer">
+    <p>Del Texto a la Acción · Buenos Aires</p>
+    <a href="https://instagram.com/deltextoalaaccion" target="_blank" rel="noreferrer">@deltextoalaaccion</a>
+  </footer>
+
+  <script>
+    (function () {
+      const form = document.getElementById('reserva-form');
+      const successDiv = document.getElementById('form-success');
+      const errorDiv = document.getElementById('form-error');
+      const successName = document.getElementById('success-name');
+      const FORMSPREE_ID = 'xvzeqwve';
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        
+        const submitBtn = form.querySelector('.dta-form-submit');
+        const originalText = submitBtn.textContent;
+        const nombre = form.querySelector('#nombre').value;
+        
+        // Estado de carga
+        submitBtn.textContent = 'Enviando...';
+        submitBtn.disabled = true;
+        
+        // Ocultar mensajes previos
+        successDiv.style.display = 'none';
+        errorDiv.style.display = 'none';
+
+        try {
+          const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            // Éxito
+            form.style.display = 'none';
+            successDiv.style.display = 'block';
+            successName.textContent = nombre || 'hola';
+            form.reset();
+          } else {
+            // Error en la respuesta
+            throw new Error('Error en la respuesta del servidor');
+          }
+        } catch (err) {
+          // Error en el envío
+          errorDiv.style.display = 'block';
+          console.error('Error:', err);
+          
+          // Restaurar botón
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
