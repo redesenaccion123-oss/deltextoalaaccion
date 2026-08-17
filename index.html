@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Del Texto a la Acción — María Cecilia González</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Paleta teatro — Del Texto a la Acción */
+    --stage:      #1b1015;  /* fondo escenario */
+    --stage-2:    #211318;  /* paneles oscuros */
+    --panel:      #26161c;  /* tarjetas */
+    --panel-edge: #3a2530;  /* bordes / divisorias */
+    --velvet:     #57223b;  /* terciopelo */
+    --velvet-soft:#7a3350;
+    --gold:       #cfa24a;  /* dorado acento */
+    --gold-deep:  #a8802f;
+    --paper:      #f4ebdc;  /* papel / inputs claros */
+    --paper-2:    #fffaf1;
+    --paper-line: #e2d3bd;
+    --ink:        #241820;  /* texto sobre papel */
+    --ink-soft:   #6b5646;
+    --cream:      #efe4d2;  /* texto principal sobre oscuro */
+    --cream-dim:  #cbbba6;  /* texto cuerpo sobre oscuro */
+    --muted:      #a08a78;
+    --faint:      #7a6656;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background:
+      radial-gradient(120% 80% at 50% -8%, rgba(87,34,59,0.35), transparent 60%),
+      var(--stage);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(27,16,21,0.86);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--panel-edge);
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav-ig {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--faint);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+  }
+  .nav-ig:hover { color: var(--gold); }
+
+  /* LAYOUT */
+  .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+
+  /* HERO */
+  .hero {
+    padding: 6rem 0 5rem;
+    border-bottom: 0.5px solid var(--panel-edge);
+  }
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(44px, 8vw, 72px);
+    font-weight: 400;
+    line-height: 1.08;
+    color: var(--cream);
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--cream-dim);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .hero-sub:last-of-type { margin-bottom: 2.5rem; }
+  .hero-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .btn-main {
+    background: var(--gold);
+    color: var(--stage);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 13px 28px;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+  }
+  .btn-main:hover { background: var(--gold-deep); }
+  .btn-ghost {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--faint);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--gold); }
+
+  /* SECTIONS */
+  .section { padding: 4.5rem 0; border-bottom: 0.5px solid var(--panel-edge); }
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 1.75rem;
+  }
+  .section h2 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.005em;
+  }
+  .section p {
+    font-size: 15px;
+    color: var(--cream-dim);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    max-width: 620px;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* PULLQUOTE */
+  .pullquote {
+    margin: 2.5rem 0;
+    padding: 2rem 0 2rem 2rem;
+    border-left: 1.5px solid var(--gold);
+  }
+  .pullquote p {
+    font-family: var(--serif);
+    font-size: clamp(20px, 3vw, 26px);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.5;
+    max-width: 560px;
+    margin: 0;
+  }
+
+  /* PLANS */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--panel-edge);
+    border: 0.5px solid var(--panel-edge);
+    margin-top: 2rem;
+  }
+  .plan {
+    background: var(--panel);
+    padding: 2rem 1.5rem;
+    position: relative;
+  }
+  .plan.featured {
+    background: var(--velvet);
+  }
+  .plan-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .plan.featured .plan-tag { color: rgba(239,228,210,0.6); }
+  .plan h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .plan-price {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+    line-height: 1;
+  }
+  .plan.featured .plan-price { color: var(--cream); }
+  .plan-price span {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .plan.featured .plan-price span { color: rgba(239,228,210,0.6); }
+  .plan-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+  .plan.featured .plan-sub { color: rgba(239,228,210,0.65); }
+  .plan-desc {
+    font-size: 13px;
+    color: var(--cream-dim);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+  .plan.featured .plan-desc { color: rgba(239,228,210,0.82); }
+  .plan-list {
+    list-style: none;
+    margin-bottom: 1.75rem;
+  }
+  .plan-list li {
+    font-size: 13px;
+    color: var(--cream-dim);
+    padding: 5px 0;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .plan.featured .plan-list li { color: rgba(239,228,210,0.85); }
+  .plan-list li::before {
+    content: "—";
+    position: absolute; left: 0;
+    color: var(--gold-deep);
+  }
+  .plan.featured .plan-list li::before { color: rgba(207,162,74,0.7); }
+  .plan-cta {
+    display: block;
+    text-align: center;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 11px 0;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .plan-cta-outline {
+    border: 0.5px solid var(--panel-edge);
+    color: var(--cream);
+    background: transparent;
+  }
+  .plan-cta-outline:hover { background: rgba(207,162,74,0.08); border-color: var(--gold-deep); }
+  .plan-cta-inverse {
+    background: var(--gold);
+    color: var(--stage);
+    border: none;
+  }
+  .plan-cta-inverse:hover { background: var(--gold-deep); }
+
+  /* TESTIMONIOS */
+  .testimonios { margin-top: 2rem; display: flex; flex-direction: column; gap: 0; }
+  .testimonio {
+    padding: 1.5rem 0;
+    border-bottom: 0.5px solid var(--panel-edge);
+  }
+  .testimonio:last-child { border-bottom: none; }
+  .testimonio p {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    max-width: none;
+  }
+  .testimonio cite {
+    font-style: normal;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* BIO */
+  .bio { margin-top: 2rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .bio-initials {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 0.5px solid var(--gold-deep);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--gold);
+    flex-shrink: 0;
+    background: var(--stage-2);
+  }
+  .bio-text p {
+    font-size: 14px;
+    color: var(--cream-dim);
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
+    max-width: none;
+  }
+  .bio-text p:last-child { margin-bottom: 0; }
+  .bio-link {
+    font-size: 13px;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 0.5px solid currentColor;
+    padding-bottom: 1px;
+  }
+
+  /* CIERRE */
+  .cierre {
+    padding: 6rem 0 5rem;
+    text-align: center;
+  }
+  .cierre h2 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .cierre p {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+  .cierre-note {
+    margin-top: 1.25rem;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cierre-note a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 0.5px solid currentColor;
+    padding-bottom: 1px;
+  }
+
+  /* FORM */
+  .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .form-input {
+    background: var(--paper-2);
+    border: 0.5px solid var(--paper-line);
+    border-radius: 2px;
+    padding: 11px 14px;
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--velvet); }
+  select.form-input { appearance: none; cursor: pointer; }
+  textarea.form-input { resize: vertical; }
+  #form-msg {
+    display: none;
+    font-size: 14px;
+    color: var(--cream);
+    padding: 1rem;
+    border-radius: 2px;
+    text-align: center;
+  }
+  #form-msg.ok { background: var(--velvet); }
+  #form-msg.error { background: var(--panel); border: 0.5px solid var(--velvet-soft); }
+  #form-msg a { color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--panel-edge);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  footer p { font-size: 12px; color: var(--faint); }
+  footer a { font-size: 12px; color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    nav { padding: 1rem; }
+    .container { padding: 0 1.25rem; }
+    .hero { padding: 4rem 0 3.5rem; }
+    .section { padding: 3rem 0; }
+    .plans-grid { grid-template-columns: 1fr; }
+    .bio { flex-direction: column; gap: 1rem; }
+    .pullquote { padding-left: 1.25rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Del Texto a la Acción</a>
+  <a class="nav-ig" href="https://instagram.com/labdeltextoalaaccion" target="_blank">@labdeltextoalaaccion</a>
+</nav>
+
+<main>
+
+  <section class="hero">
+    <div class="container">
+      <p class="hero-eyebrow">Buenos Aires · Laboratorio de actuación</p>
+      <h1>¿Dónde tenías<br>puesta la <em>atención</em>?</h1>
+      <p class="hero-sub">Esa es una de las primeras preguntas que hago.</p>
+      <p class="hero-sub">La actuación siempre necesita una dirección: por dónde empiezo. ¿Por decir bien el texto, por retener las palabras exactas? ¿Por construir una forma de decir, poner una cara de…? ¿Cuánto me queda del cuerpo, del vínculo con el otro, si la atención no sale nunca de los pensamientos?</p>
+      <p class="hero-sub">El laboratorio DelTA (Del Texto a la Acción) es un espacio de investigación e intercambio para actores y actrices que buscan una actuación viva, sin caer en la forma ni en la declamación vacía.</p>
+      <p class="hero-sub">Es el espacio de prueba, error, ensayo y repetición, que se completa hacia el final con la mirada del público.</p>
+      <div class="hero-actions">
+        <a class="btn-main" href="#reservar">Quiero anotarme</a>
+        <a class="btn-ghost" href="#planes">Ver opciones y precios ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="section-label">El enfoque</p>
+      <h2>Trasladar la atención:<br>de la idea a la conducta.</h2>
+      <p>Trabajamos sobre un eje fundamental: hacia dónde miramos cuando actuamos. Muchas veces, la interpretación se queda en la superficie porque la atención queda atrapada en un esfuerzo intelectual: retener la letra, buscar una entonación «correcta» o construir artificialmente una forma de decir.</p>
+      <p>En ese automatismo, el presente del cuerpo y el vínculo real con el otro desaparecen.</p>
+      <p>Cuando la atención sale de los pensamientos y se traslada hacia lo que se acciona —el deseo, el obstáculo y el compañero—, el texto deja de ser el centro y se convierte en el pretexto para que el hecho teatral finalmente acontezca.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="section-label">El trabajo</p>
+      <h2>Desarmar para construir.</h2>
+      <p>No venimos a ejecutar un texto, venimos a desarmarlo.</p>
+      <p>Investigamos la estructura para identificar acciones reales y construir decisiones escénicas que tengan sentido de verdad. Integramos cuerpo, voz y pensamiento en una unidad expresiva, para que empieces a construir un hecho teatral vivo, movido por impulsos genuinos en presente.</p>
+    </div>
+  </section>
+
+  <section class="section" id="planes">
+    <div class="container">
+      <p class="section-label">Opciones</p>
+      <h2>Propuestas de entrenamiento</h2>
+      <div class="plans-grid">
+
+        <div class="plan featured">
+          <span class="plan-tag">Laboratorio</span>
+          <h3>Presencial intensivo</h3>
+          <div style="margin-bottom:0.5rem;">
+            <span style="display:inline-flex; align-items:center; gap:7px; background:var(--gold); color:var(--stage); font-family:var(--sans); font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.09em; padding:7px 14px; border-radius:100px;">
+              <span style="width:6px; height:6px; border-radius:50%; background:var(--stage); display:inline-block;"></span>
+              Inscripciones abiertas
+            </span>
+          </div>
+          <p class="plan-sub">8 clases · Segunda semana de septiembre a segunda semana de noviembre</p>
+          <p class="plan-desc">El proceso completo: del entrenamiento técnico a la experimentación frente a público.</p>
+          <ul class="plan-list">
+            <li>8 encuentros · viernes de 18.30 a 21 hs · CABA</li>
+            <li>Corrección personalizada en vivo</li>
+            <li>Textos provistos por la docente</li>
+            <li>Última clase: experimentación frente a público</li>
+            <li>Descuento para estudiantes UNA/EMAD y ex alumnos del taller</li>
+          </ul>
+          <a class="plan-cta plan-cta-inverse" href="#reservar">Anotarme al laboratorio</a>
+        </div>
+
+        <div class="plan">
+          <span class="plan-tag">Digital</span>
+          <h3>Módulo introductorio</h3>
+          <div class="plan-price" style="font-size:20px;">Próximamente</div>
+          <p class="plan-sub">Acceso online · A tu ritmo</p>
+          <p class="plan-desc">Indagación teórica y ejercicios autónomos, para empezar a entender el abordaje antes de entrar al laboratorio.</p>
+          <ul class="plan-list">
+            <li>Videos con herramientas técnicas y teóricas introductorias</li>
+            <li>PDF descargable con guía práctica</li>
+            <li>Ejercicios para trabajar sola/solo</li>
+          </ul>
+          <a class="plan-cta plan-cta-outline" href="https://instagram.com/labdeltextoalaaccion" target="_blank">Avisame cuando esté disponible</a>
+        </div>
+
+        <div class="plan">
+          <span class="plan-tag">Individual</span>
+          <h3>Coaching actoral</h3>
+          <div class="plan-price" style="font-size:20px;">Por entrevista</div>
+          <p class="plan-sub">Atención personalizada</p>
+          <p class="plan-desc">Entrenamiento personalizado para procesos específicos: castings, bloqueos o unipersonales.</p>
+          <ul class="plan-list">
+            <li>Mirada profesional individual</li>
+            <li>Preparación para casting</li>
+            <li>Trabajo sobre unipersonales</li>
+          </ul>
+          <a class="plan-cta plan-cta-outline" href="https://instagram.com/labdeltextoalaaccion" target="_blank">Escribime por Instagram</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Lo que dicen quienes pasaron por el proceso</p>
+      <h2>Herramientas que se llevan al cuerpo</h2>
+      <div class="testimonios">
+        <div class="testimonio">
+          <p>"El espacio me dejó herramientas concretas que pude pasarlas al cuerpo. Sentí que estaba creciendo técnicamente."</p>
+          <cite>— Actriz, alumna del laboratorio 2024</cite>
+        </div>
+        <div class="testimonio">
+          <p>"Aunque no pude continuar por trabajo, me llevo mucho del proceso. El taller fue valioso desde el primer encuentro."</p>
+          <cite>— Alumna del taller de extensión UNA</cite>
+        </div>
+        <div class="testimonio">
+          <p>"Las devoluciones son claras, precisas y útiles. No es teoría: es algo que aplicás en el momento."</p>
+          <cite>— Actriz, laboratorio 2024</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Quién soy</p>
+      <h2>María Cecilia González</h2>
+      <div class="bio">
+        <div class="bio-initials">MCG</div>
+        <div class="bio-text">
+          <p>Soy actriz, docente y creadora escénica, Licenciada en Actuación por la Universidad Nacional de las Artes (UNA). Mi trabajo se sitúa en la intersección entre la actuación, la dramaturgia y la dirección, con un interés profundo en el vínculo entre la técnica actoral y la construcción poética.</p>
+          <p>Me formé con maestros como Raúl Serrano, Alejandro Catalán y Javier Daulte, y en dramaturgia con Mauricio Kartún y Mariano Saba —referentes que definieron mi manera de entender el hecho teatral—.</p>
+          <p>Desde hace más de 15 años, mi práctica se despliega en diversos frentes: soy docente de Actuación en la UNA y coordino el laboratorio Del Texto a la Acción, un espacio centrado en la integración cuerpo–voz y la acción dramática. Durante 8 años co-dirigí la compañía Los Perros de Pavlov, con la que recorrimos escenarios de Argentina y Colombia.</p>
+          <p>Esa misma búsqueda por la potencia de la imagen y la acción me llevó al terreno cinematográfico. Actualmente soy productora ejecutiva en Lunfardo Films. Nuestras producciones han sido nominadas en festivales internacionales como Sitges (Barcelona), Mar del Plata, BIFAN (Corea del Sur) y Macabro (México). Recientemente, nuestra última producción fue galardonada con el premio a Mejor Cortometraje de América Latina en FANLATAM.</p>
+          <p><a class="bio-link" href="https://instagram.com/labdeltextoalaaccion" target="_blank">@labdeltextoalaaccion</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cierre">
+    <div class="container">
+      <h2>El texto está.<br>Ahora hay que accionarlo.</h2>
+      <p>Cupo limitado. Comienza la segunda semana de septiembre.</p>
+      <a class="btn-main" href="#reservar">Quiero anotarme al laboratorio</a>
+      <p class="cierre-note">¿Tenés dudas? Escribime por <a href="https://instagram.com/labdeltextoalaaccion" target="_blank">Instagram</a> y lo hablamos.</p>
+    </div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="section" id="reservar" style="border-bottom: none;">
+    <div class="container">
+      <p class="section-label">Inscripción</p>
+      <h2>Reservá tu lugar</h2>
+      <p style="margin-bottom: 2rem;">Completá el formulario y te escribo para confirmar tu lugar. Si sos estudiante de la UNA o la EMAD, o ex alumna/o del taller, indicalo y te aplico el descuento.</p>
+      <form id="form-inscripcion" action="https://formspree.io/f/TU_CODIGO_FORMSPREE" method="POST" style="display:flex; flex-direction:column; gap: 1.25rem; max-width: 520px;">
+        <div class="form-field">
+          <label class="form-label">Nombre completo *</label>
+          <input class="form-input" type="text" name="nombre" required placeholder="Tu nombre">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Mail *</label>
+          <input class="form-input" type="email" name="email" required placeholder="tu@mail.com">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Teléfono / WhatsApp</label>
+          <input class="form-input" type="tel" name="telefono" placeholder="+54 11 ...">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Instagram *</label>
+          <input class="form-input" type="text" name="instagram" required placeholder="@tuusuario (si no tenés, poné «no tengo»)">
+        </div>
+        <div class="form-field">
+          <label class="form-label">¿Aplicás a descuento?</label>
+          <select class="form-input" name="descuento">
+            <option value="ninguno">No aplica</option>
+            <option value="una">Soy estudiante de la UNA</option>
+            <option value="emad">Soy estudiante de la EMAD</option>
+            <option value="exalumno">Soy ex alumna/o del taller Del Texto a la Acción</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">¿Algo que quieras contarme?</label>
+          <textarea class="form-input" name="mensaje" rows="3" placeholder="Experiencia actoral, preguntas, lo que quieras..."></textarea>
+        </div>
+        <div>
+          <button type="submit" class="btn-main" style="width: 100%; text-align: center; cursor: pointer;">Enviar inscripción</button>
+        </div>
+        <p id="form-msg"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Del Texto a la Acción · Buenos Aires</p>
+  <a href="https://instagram.com/labdeltextoalaaccion" target="_blank">@labdeltextoalaaccion</a>
+</footer>
+
+<script>
+const form = document.getElementById('form-inscripcion');
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = form.querySelector('button[type="submit"]');
+  const msg = document.getElementById('form-msg');
+  const data = new FormData(form);
+  const nombre = data.get('nombre') || '';
+
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+  msg.style.display = 'none';
+
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      msg.className = 'ok';
+      msg.style.display = 'block';
+      msg.textContent = '¡Gracias, ' + nombre + '! Recibí tu inscripción y te escribo pronto para confirmar tu lugar.';
+      form.reset();
+      btn.textContent = 'Inscripción enviada ✓';
+      btn.style.background = 'var(--gold-deep)';
+    } else {
+      throw new Error('No se pudo enviar');
+    }
+  } catch (err) {
+    msg.className = 'error';
+    msg.style.display = 'block';
+    msg.innerHTML = 'No se pudo enviar el formulario. Probá de nuevo en un momento, o escribime por <a href="https://instagram.com/labdeltextoalaaccion" target="_blank">Instagram</a>.';
+    btn.textContent = 'Enviar inscripción';
+    btn.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>
